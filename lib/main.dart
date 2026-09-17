@@ -6,21 +6,26 @@ void main() {
   runApp(const MainApp()); // part of the flutter sdk that takes a widget as an argument, MainApp is the widget
 }
 
-class MainApp extends StatelessWidget { //root widget that gets passed into runApp
+class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Tile('A', HitType.hit),
+        appBar: AppBar(
+          title: const Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Birdle'),
+          ),
         ),
+        body: Center(child: GamePage()),
       ),
     );
   }
 }
+
+
 
 class Tile extends StatelessWidget {
   const Tile (this.letter, this.hitType, {super.key}); // constructor defines what data needs to be passed into the widget
@@ -55,3 +60,30 @@ class Tile extends StatelessWidget {
     
   }
 }
+
+class GamePage extends StatelessWidget {
+  GamePage({super.key});
+
+  // This manages game logic, and is out of scope for this lesson.
+  final Game _game = Game();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        spacing: 5.0,
+        children: [
+          for (final guess in _game.guesses)
+            Row(
+              spacing: 5.0,
+              children: [
+                for (final letter in guess) Tile(letter.char, letter.type),
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+}
+
