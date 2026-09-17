@@ -35,7 +35,7 @@ class Tile extends StatelessWidget {
     return Container(
       width: 60,
       height: 60,
-      decoration: BoxDecoration(
+      decoration: BoxDecoration( //add a border to the box
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
           HitType.hit => Colors.green,
@@ -44,6 +44,13 @@ class Tile extends StatelessWidget {
           _ => Colors.white,
         }
       ),
+      child: Center(
+        child: Text(
+          letter.toUpperCase(),
+          style: Theme.of(context).textTheme.titleLarge,
+          
+          ),
+      )
     );
     
   }
