@@ -28,38 +28,38 @@ class MainApp extends StatelessWidget {
 
 
 class Tile extends StatelessWidget {
-  const Tile (this.letter, this.hitType, {super.key}); // constructor defines what data needs to be passed into the widget
+  const Tile(this.letter, this.hitType, {super.key});
 
   final String letter;
   final HitType hitType;
-  
-
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60,
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.bounceIn, // NEW
       height: 60,
-      decoration: BoxDecoration( //add a border to the box
+      width: 60,
+      decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         color: switch (hitType) {
           HitType.hit => Colors.green,
           HitType.partial => Colors.yellow,
           HitType.miss => Colors.grey,
           _ => Colors.white,
-        }
+        },
       ),
       child: Center(
         child: Text(
           letter.toUpperCase(),
           style: Theme.of(context).textTheme.titleLarge,
-          
-          ),
-      )
+        ),
+      ),
     );
-    
   }
 }
+
+
 
 class GamePage extends StatefulWidget {
   GamePage({super.key});
